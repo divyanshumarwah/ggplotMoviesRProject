@@ -1,0 +1,125 @@
+---
+title: "Movie Dataset GGPlot Notebook"
+output: html_notebook
+---
+
+Different plots using different functions in ggplot2 library in R.
+Using the movies dataset for this visualization.
+
+
+```{r}
+movies<-read.csv("P2-Movie-Ratings.csv")
+```
+```{r}
+colnames(movies)<-c("Film","Genre","CriticRating","AudienceRating","BudgetMillion","Year")
+```
+```{r}
+library("ggplot2")
+q<-ggplot(data=movies,aes(x=CriticRating,y=AudienceRating,color=Genre,size=BudgetMillion))
+q+geom_point()
+```
+
+
+```{r}
+q+geom_jitter()
+```
+```{r}
+q+geom_rug(sides="bl")
+```
+```{r}
+q+geom_smooth()
+```
+```{r}
+q+geom_text(aes(label=CriticRating))
+```
+```{r}
+q+geom_hex()
+```
+```{r}
+q+geom_density2d()
+```
+```{r}
+q+geom_bin2d(binwidth = c(5, 0.5))
+```
+```{r}
+s<-ggplot(data = movies,aes(x=BudgetMillion))
+s+geom_histogram(binwidth = 10,aes(fill=Genre),color="black")
+```
+```{r}
+#two variable trend curve
+t<-ggplot(data=movies,aes(y=AudienceRating,x=CriticRating,color=Genre))
+t+geom_point()+geom_smooth(fill=NA)
+```
+```{r}
+u<-ggplot(data=movies,aes(x=Genre,y=AudienceRating,color=Genre))
+u+geom_boxplot()
+```
+```{r}
+v<-ggplot(data=movies,aes(x=BudgetMillion))
+v+geom_histogram(binwidth = 10,aes(fill=Genre),color="Black") + facet_grid(Genre~.,scales = "free")
+```
+
+
+```{r}
+o<-ggplot(data=movies,aes(x=BudgetMillion))
+o+geom_area(stat="bin")
+```
+```{r}
+o+geom_density(kernel="gaussian")
+```
+```{r}
+o+geom_freqpoly()
+```
+```{r}
+o+geom_bar()
+```
+```{r}
+o+geom_histogram(binwidth = 5)
+```
+```{r}
+o+geom_dotplot()
+```
+```{r}
+#single variable histogram
+t<-ggplot(data=movies,aes(x=AudienceRating))
+t+geom_histogram(binwidth = 10,fill="White",color="Black")
+```
+```{r}
+#single variable density plot
+s+geom_density(aes(fill=Genre),position="Stack")
+```
+```{r}
+d<-ggplot(data=movies,aes(x=CriticRating,y=AudienceRating,z=Genre))
+d + geom_tile(aes(fill = Genre), hjust=0.5, vjust=0.5, interpolate=FALSE)
+```
+```{r}
+g<-ggplot(data=movies,aes(x=CriticRating))
+r<-g+geom_bar()
+r+coord_cartesian(xlim = c(0,5))
+```
+```{r}
+r+coord_flip()
+```
+```{r}
+r + coord_fixed(ratio = 1/2)
+```
+```{r}
+r + coord_polar(theta = "x", direction=1 )
+```
+```{r}
+r + coord_trans(y = "sqrt")
+```
+```{r}
+r + coord_map(projection = "ortho",orientation=c(40, 40, 0))
+```
+```{r}
+g+geom_bar(position = "dodge")
+```
+```{r}
+f<- ggplot(data=movies, aes(x=CriticRating,y=AudienceRating))
+f+geom_point(position = "jitter")
+```
+```{r}
+f+geom_ribbon(aes(ymin=AudienceRating-20,ymax=AudienceRating+20))
+```
+
